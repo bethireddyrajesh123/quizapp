@@ -6,8 +6,8 @@ pipeline {
     }
  
     tools {
-        jdk 'JDK-17'          // Jenkins tool name s
-        maven 'Maven-3.9.6'   // Jenkins tool name
+        jdk 'JDK-17'
+        maven 'Maven-3.9.6'
     }
  
     stages {
@@ -20,16 +20,22 @@ pipeline {
  
         stage('Build Quiz Backend') {
             steps {
-                dir('backend')
-                sh 'mvn clean package -DskipTests'
+                dir('quizapp') {   // 👈 VERY IMPORTANT
+                    sh 'mvn clean package -DskipTests'
+                }
             }
         }
-        stage('run (Verification)'){
-            steps{
-                dir('backend'){
-                    sh '''
-                    java -jar target/*.jar & sleep 15 '''}}}
  
+        stage('Run (Verification)') {
+            steps {
+                dir('quizapp') {
+                    sh '''
+                    java -jar target/*.jar &
+                    sleep 15
+                    '''
+                }
+            }
+        }
     }
  
     post {
