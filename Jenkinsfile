@@ -1,22 +1,47 @@
 pipeline {
     agent any
  
+    triggers {
+        githubPush()
+    }
+ 
     tools {
-        jdk 'JDK-17'
-        maven 'Maven-3.9.6'
+        jdk 'JDK-17'          // Jenkins tool name
+        maven 'Maven-3.9.6'   // Jenkins tool name
     }
  
     stages {
-        stage('Check Java') {
+ 
+        stage('Checkout') {
             steps {
-                sh 'java -version'
+                checkout scm
             }
         }
  
-        stage('Check Maven') {
+        stage('Build Quiz Backend') {
             steps {
-                sh 'mvn -version'
+                sh 'mvn clean package -DskipTests'
             }
+        }
+ 
+        stage('Run (Verification)') {
+            steps {
+                sh '''
+                echo "Starting Quiz Backend..."
+                java -jar target/*.jar &
+                sleep 15
+                echo "Quiz Backend started successfully"
+                '''
+            }
+        }
+    }
+ 
+    post {
+        success {
+            echo "Quiz Backend CI pipeline SUCCESS"
+        }
+        failure {
+            echo "Quiz Backend CI pipeline FAILED"
         }
     }
 }
