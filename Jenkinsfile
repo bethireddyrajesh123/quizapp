@@ -1,47 +1,22 @@
 pipeline {
     agent any
  
-    triggers {
-        githubPush()
-    }
- 
     tools {
-        maven 'Maven-3.9.6'   // must match Jenkins tool name
-        jdk 'JDK-17'          // or JDK-11 based on your project
+        jdk 'JDK-17'
+        maven 'Maven-3.9.6'
     }
  
     stages {
- 
-        stage('Checkout') {
+        stage('Check Java') {
             steps {
-                checkout scm
+                sh 'java -version'
             }
         }
  
-        stage('Build') {
+        stage('Check Maven') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'mvn -version'
             }
-        }
- 
-        stage('Run (Verification)') {
-            steps {
-                sh '''
-                echo "Starting Spring Boot backend..."
-                java -jar target/*.jar &
-                sleep 15
-                echo "Backend started successfully"
-                '''
-            }
-        }
-    }
- 
-    post {
-        success {
-            echo "Quiz Backend pipeline executed successfully"
-        }
-        failure {
-            echo "Quiz Backend pipeline failed"
         }
     }
 }
