@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-                echo "GitHub push event received. Job triggered successfully."
+                echo "GitHub push event received. Job triggered successfully. and we are now testing"
             }
         }
     }
