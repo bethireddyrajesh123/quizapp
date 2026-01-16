@@ -20,9 +20,15 @@ pipeline {
  
         stage('Build Quiz Backend') {
             steps {
+                dir('backend')
                 sh 'mvn clean package -DskipTests'
             }
         }
+        stage('run (Verification)'){
+            steps{
+                dir('backend'){
+                    sh '''
+                    java -jar target/*.jar & sleep 15 '''}}}
  
     }
  
