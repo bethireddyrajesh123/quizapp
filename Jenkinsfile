@@ -6,7 +6,7 @@ pipeline {
     }
  
     tools {
-        jdk 'JDK-17'          // Jenkins tool name
+        jdk 'JDK-17'          // Jenkins tool name s
         maven 'Maven-3.9.6'   // Jenkins tool name
     }
  
