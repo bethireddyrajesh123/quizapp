@@ -5,10 +5,7 @@ pipeline {
         githubPush()
     }
  
-    tools {
-        maven 'Maven-3.9.6'   // must match Jenkins tool name
-        jdk 'JDK-17'          // or JDK-11 based on your project
-    }
+    
  
     stages {
  
