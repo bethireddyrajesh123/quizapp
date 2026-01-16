@@ -24,16 +24,6 @@ pipeline {
             }
         }
  
-        stage('Run (Verification)') {
-            steps {
-                sh '''
-                echo "Starting Quiz Backend..."
-                java -jar target/*.jar &
-                sleep 15
-                echo "Quiz Backend started successfully"
-                '''
-            }
-        }
     }
  
     post {
